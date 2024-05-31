@@ -20,7 +20,6 @@ class Article extends Model
         'image',
         'category_id',
         'author_id',
-       
     ];
 
     public function category(){
@@ -32,7 +31,7 @@ class Article extends Model
     }
 
     public function favourites(){
-        return $this->hasMany(Favourites::class);
+        return $this->hasMany(Favourite::class);
     }
 
     public function comments(){

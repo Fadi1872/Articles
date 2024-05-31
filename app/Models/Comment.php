@@ -15,18 +15,8 @@ class Comment extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-
         'user_id',
         'article_id',
-        'body',
-       
+        'body',   
     ];
-
-    public function users(){
-        return $this->belongsToMany(User::class);
-    }
-
-    public function articles(){
-        return $this->belongsToMany(Article::class);
-    }
 }

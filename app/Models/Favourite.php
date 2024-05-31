@@ -20,14 +20,5 @@ class Favourite extends Model
     protected $fillable = [
         'user_id',
         'article_id',
-       
     ];
-
-    public function users(){
-        return $this->belongsToMany(User::class);
-    }
-
-    public function articles(){
-        return $this->belongsToMany(Article::class);
-    }
 }

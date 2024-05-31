@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Be_Author_Requests extends Model
+class Be_Author_Request extends Model
 {
     use HasFactory;
 

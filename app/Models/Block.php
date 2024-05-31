@@ -21,12 +21,4 @@ class Block extends Model
         'author_id',
        
     ];
-
-    public function users(){
-        return $this->belongsToMany(User::class);
-    }
-
-    public function authors(){
-        return $this->belongsToMany(Author::class);
-    }
 }

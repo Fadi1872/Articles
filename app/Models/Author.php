@@ -15,22 +15,21 @@ class Author extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
         'country',
         'address',
         'files_path',
         'user_id',
-       
     ];
 
     public function articles(){
         return $this->belongsToMany(Article::class);
     }
+
+    public function userData(){
+        return $this->belongsTo(User::class);
+    }
     
     public function blocks(){
-        return $this->hasMany(Block::class);
+        return $this->belongsToMany(User::class, 'blocks');
     }
-   
 }

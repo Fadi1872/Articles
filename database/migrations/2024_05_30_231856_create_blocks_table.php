@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
             $keys = array('user_id', 'author_id');
             $table->primary($keys);
-
         });
     }
 
