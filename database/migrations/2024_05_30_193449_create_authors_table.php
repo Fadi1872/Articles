@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('country');
             $table->string('address');
             $table->string('files_path');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

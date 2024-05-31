@@ -12,13 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('blocks', function (Blueprint $table) {
-            $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('author_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
+            $keys = array('user_id', 'author_id');
+            $table->primary($keys);
+
         });
     }
 

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('body');
             $table->string('image');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
+            $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreignId('author_id')->references('id')->on('authors')->onDelete('cascade');
             $table->timestamps();
         });
     }

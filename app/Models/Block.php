@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Block extends Model
 {
     use HasFactory;
+    protected $primaryKey = ['user_id', 'author_id'];
+
 
      /**
      * The attributes that are mass assignable.

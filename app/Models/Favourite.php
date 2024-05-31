@@ -9,6 +9,9 @@ class Favourite extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = ['user_id', 'article_id'];
+
+
      /**
      * The attributes that are mass assignable.
      *
