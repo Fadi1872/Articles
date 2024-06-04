@@ -19,6 +19,7 @@ use App\Http\Controllers\Web\RoleController;
 Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::middleware('dashboard')->group(function () {
+        Route::get('/', function(){return redirect()->route('user.index');});
         Route::resource('/user', UserController::class);
         Route::resources(['roles' => RoleController::class]);
     });
