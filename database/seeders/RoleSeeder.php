@@ -15,6 +15,7 @@ class RoleSeeder extends Seeder
     {
         $admin = Role::create(['name' => 'Admin']);
         $admin->givePermissionTo([
+            'enter_dashboard',
             'create-role',
             'edit-role',
             'delete-role',

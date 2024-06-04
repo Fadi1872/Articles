@@ -21,6 +21,6 @@ class Be_Author_Request extends Model
     }
 
     public function request_data(){
-        return $this->hasOne(User::class);
+        return $this->hasOne(Requests_Data::class);
     }
 }

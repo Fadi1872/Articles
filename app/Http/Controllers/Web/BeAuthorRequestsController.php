@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Web\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Be_Author_Requests;
 use Illuminate\Http\Request;
 

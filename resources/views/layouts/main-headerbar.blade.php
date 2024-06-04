@@ -65,8 +65,8 @@
                     <li class="user-footer">
                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                         <a href="#"
-                            {{-- onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();" --}}
+                            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();"
                             class="btn btn-default btn-flat float-end">Sign out</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
