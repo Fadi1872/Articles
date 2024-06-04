@@ -3,6 +3,7 @@
 use App\Http\Controllers\Web\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-Route::middleware('auth')->group(function(){
-    Route::middleware('dashboard')->group(function(){
+Route::middleware('auth')->group(function () {
+    Route::middleware('dashboard')->group(function () {
         Route::resource('/user', UserController::class);
+        Route::resources(['roles' => RoleController::class]);
     });
 });
