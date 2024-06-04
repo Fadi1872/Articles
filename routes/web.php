@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\BeAuthorRequestsController;
 use App\Http\Controllers\Web\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,5 +23,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/', function(){return redirect()->route('user.index');});
         Route::resource('/user', UserController::class);
         Route::resources(['roles' => RoleController::class]);
+        Route::resource('/requests', BeAuthorRequestsController::class);
     });
 });

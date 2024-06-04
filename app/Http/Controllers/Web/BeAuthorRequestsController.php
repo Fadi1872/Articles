@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Web\Controllers;
+namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Be_Author_Requests;
 use Illuminate\Http\Request;
 
 class BeAuthorRequestsController extends Controller
@@ -35,7 +34,7 @@ class BeAuthorRequestsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Be_Author_Requests $be_Author_Requests)
+    public function show(string $id)
     {
         //
     }
@@ -43,7 +42,7 @@ class BeAuthorRequestsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Be_Author_Requests $be_Author_Requests)
+    public function edit(string $id)
     {
         //
     }
@@ -51,7 +50,7 @@ class BeAuthorRequestsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Be_Author_Requests $be_Author_Requests)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +58,7 @@ class BeAuthorRequestsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Be_Author_Requests $be_Author_Requests)
+    public function destroy(string $id)
     {
         //
     }

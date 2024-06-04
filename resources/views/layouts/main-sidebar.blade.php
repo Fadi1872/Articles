@@ -38,6 +38,23 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon bi bi-circle-fill"></i>
+                        <p>
+                            Requests
+                            <i class="nav-arrow bi bi-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('requests.index') }}" class="nav-link">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 
                 <li class="nav-header">Roles</li>
                 <li class="nav-item">

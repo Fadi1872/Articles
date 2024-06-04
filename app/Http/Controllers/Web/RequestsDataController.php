@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
-use App\Models\Requests_Data;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class RequestsDataController extends Controller
@@ -34,7 +34,7 @@ class RequestsDataController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Requests_Data $requests_Data)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +42,7 @@ class RequestsDataController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Requests_Data $requests_Data)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +50,7 @@ class RequestsDataController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Requests_Data $requests_Data)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +58,7 @@ class RequestsDataController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Requests_Data $requests_Data)
+    public function destroy(string $id)
     {
         //
     }

@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles:name')->select( 'id', 'name', 'email' )->get();
+        $users = User::with('roles:name')->select('id', 'name', 'email')->get();
 
         return view('users.show', compact('users'));
     }
@@ -41,9 +41,14 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
-        $user->assignRole('Member');
+        if (isset($request->is_admin)) {
+            $user->assignRole('Admin');
+        } else {
+            $user->assignRole('Member');
+        }
 
-        return view('users');
+
+        return view('users.show');
     }
 
     /**
