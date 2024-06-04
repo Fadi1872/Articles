@@ -3,7 +3,7 @@
 use App\Http\Controllers\Web\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Web\RoleController;
 
 /*
 |--------------------------------------------------------------------------

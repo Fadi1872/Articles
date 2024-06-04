@@ -5,7 +5,7 @@
 @endsection
 
 @section('navone')
-    users
+    user
 @endsection
 
 @section('navtwo')
