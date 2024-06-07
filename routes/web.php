@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\Web\BeAuthorRequestsController;
-use App\Http\Controllers\Web\UserController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\RoleController;
+use App\Http\Controllers\Web\UserController;
+use App\Http\Controllers\Web\BeAuthorRequestsController;
+use App\Http\Controllers\Web\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,5 +26,6 @@ Route::middleware('auth')->group(function () {
         Route::resource('/user', UserController::class);
         Route::resources(['roles' => RoleController::class]);
         Route::resource('/requests', BeAuthorRequestsController::class);
+        Route::resource('/categories', CategoryController::class);
     });
 });

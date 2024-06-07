@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,11 @@ Route::controller(AuthController::class)->group(function() {
     Route::post('/register', 'register');
     Route::post('/login', 'login');
 });
+
 Route::middleware('auth:sanctum')->group( function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
+
+Route::get('/categories',[CategoryController::class,'index']);
+Route::get('/category/{id}',[CategoryController::class,'show']);
+Route::get('/categories/search/{name}', [CategoryController::class,'search']);
