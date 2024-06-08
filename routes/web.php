@@ -23,6 +23,5 @@ Route::middleware('auth')->group(function () {
         Route::get('/', function(){return redirect()->route('user.index');});
         Route::resource('/user', UserController::class);
         Route::resources(['roles' => RoleController::class]);
-        Route::resource('/requests', BeAuthorRequestsController::class);
     });
 });

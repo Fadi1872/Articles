@@ -47,7 +47,6 @@ class UserController extends Controller
             $user->assignRole('Member');
         }
 
-
         return redirect()->route('user.index');
     }
 
