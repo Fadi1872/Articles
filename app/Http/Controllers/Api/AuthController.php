@@ -14,24 +14,19 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $validate = Validator::make($request->all(), [
+        $request->validate( [
             'name' => 'required|string|max:250',
             'email' => 'required|string|email:rfc,dns|max:250|unique:users,email',
             'password' => 'required|string|min:8|confirmed'
         ]);
-        if($validate->fails()){
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'Validation Error!',
-                'data' => $validate->errors(),
-            ], 403);
-        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
         $user->assignRole('Member');
+
         $data['token'] = $user->createToken($request->email)->plainTextToken;
         $data['user'] = $user;
         $response = [

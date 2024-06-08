@@ -47,8 +47,7 @@ class UserController extends Controller
             $user->assignRole('Member');
         }
 
-
-        return view('users.show');
+        return redirect()->route('user.index');
     }
 
     /**

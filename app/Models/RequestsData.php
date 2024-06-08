@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Requests_Data extends Model
+class RequestsData extends Model
 {
     use HasFactory;
     protected $fillable = [
         'country',
         'address',
         'files_path',
-        'request_id',
+        'be_author_request_id',
     ];
 
     public function be_author_request(){
-        return $this->belongsTo(Be_Author_Request::class);
+        return $this->belongsTo(BeAuthorRequest::class);
     }
 }
