@@ -48,9 +48,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('requests.index') }}" class="nav-link">
+                            <a href="{{url('/requests') }}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
-                                <p>List</p>
+                                <p>List Pending</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('/requests/done') }}" class="nav-link">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>List Done Reqrests</p>
                             </a>
                         </li>
                     </ul>
@@ -71,7 +77,6 @@
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>Show</p>
                             </a>
-
                         </li>
                     </ul>
                 </li>

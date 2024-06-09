@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('authors', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('authors', function (Blueprint $table) {
+            $table->foreignId('request_data_id')->references('id')->on('requests_data')->onDelete('cascade');
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('authors');
+        Schema::table('requests_data', function (Blueprint $table) {
+            //
+        });
     }
 };
