@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
@@ -8,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -62,24 +64,47 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
+    public function edit(int $id)
+    {   
+        $user=User::findOrFail($id);
+        return view('users.update',compact('user'));
     }
+    public function update(UpdateUserRequest $request, string $id)
+    {
+    $user = User::findOrFail($id);
+  
+    $request->validated();
+    
+    $user->name=$request->name;
+    $user->email=$request->email;
+    if ($request->has('password')) {
+        $user->password = Hash::make($request->input('password'));
+    }
+    $user->save();
+    
+    
+     return redirect()->route('user.index')->with('success', 'User updated successfully.');
+ }
+ 
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
+    public function destroy(User $user)
+    { 
+        try {
+             
+            
+             if($user->name =='admin'){
+                return redirect()->back()->with('faild','you can not delete the admin account');
+             }else{
+                $user->delete();
+             return redirect()->route('user.index')->with('success', 'User deleted successfully.');}
+        } catch (\Exception $e) {
+            return back()->with('error', 'An error occurred while deleting the user.');
+        }
+}
+
 }
