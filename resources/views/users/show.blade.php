@@ -20,8 +20,8 @@
         <th style="width: 10px">#</th>
         <th style="width: 20%">Name</th>
         <th style="width: 30%">Email</th>
-        <th>Role</th>
-        <th style="width: 30%">Process</th>
+        <th style="width: 30%">Passowrd</th>
+        
       </tr>
     </thead>
     <tbody>
@@ -30,10 +30,16 @@
         <td>{{$loop->index + 1}}.</td>
         <td>{{$user->name}}</td>
         <td>{{$user->email}}</td>
-        <td><span class="badge text-bg-primary">{{$user->roles[0]->name}}</span></td>
+        <td>{{$user->password}}</td>
         <td>
-            <button class="btn btn-primary">edit</button>
-            <button class="btn btn-danger">delete</button>
+          <a href ="{{route('user.edit',$user->id)}}"class="btn btn-primary">edit</button>
+        </td>
+        <td>
+          <form action="{{route('user.destroy',$user->id)}}" method="POST">
+            @csrf
+            @method('DELETE')
+          <button type="submit" class="btn btn-danger">delete</button>
+          </form>
         </td>
       </tr>
       @endforeach
