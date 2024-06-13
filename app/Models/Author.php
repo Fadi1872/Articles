@@ -15,10 +15,8 @@ class Author extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'country',
-        'address',
-        'files_path',
         'user_id',
+        'request_data_id',
     ];
 
     public function articles(){
@@ -31,5 +29,9 @@ class Author extends Model
     
     public function blocks(){
         return $this->belongsToMany(User::class, 'blocks');
+    }
+
+    public function authorData(){
+        return $this->belongsTo(RequestsData::class);
     }
 }

@@ -26,13 +26,13 @@ class BeAuthorRequestsController extends Controller
     {
         //checking if the user can make a new request
         $beAutorRequests = BeAuthorRequest::where('user_id', auth()->id())->where('status', 'pending')->count();
-        if($beAutorRequests > 0)
+        if ($beAutorRequests > 0)
             return response()->json(['message' => 'you already have an active request' . $beAutorRequests]);
 
         //storing the request data
         $beAutorRequest = BeAuthorRequest::create(['user_id' => auth()->id()]);
 
-        $fileName = time(). '.' . $request->file->getClientOriginalExtension();
+        $fileName = time() . '.' . $request->file->getClientOriginalExtension();
         $path = $request->file->storeAs('requestsDocumentes', $fileName);
         RequestsData::create([
             'country' => $request->country,
@@ -60,16 +60,18 @@ class BeAuthorRequestsController extends Controller
     {
         return response()->json($request);
         $requestData = BeAuthorRequest::find($id);
-        if(auth()->id() != $requestData->user_id)
+        if (auth()->id() != $requestData->user_id)
             return response()->json(['message' => 'you can not edit other users request']);
+        else if ($requestData->status != 'pending')
+            return response()->json(['message' => 'you can not edit ' . $requestData->status . ' request']);
 
         $data = [
-          'country' => $request->country,
-          'address' => $request->address,
-          'request_id' => $requestData->id  
+            'country' => $request->country,
+            'address' => $request->address,
+            'request_id' => $requestData->id
         ];
 
-        if(!$request->file)
+        if (!$request->file)
             array_push($data, ['files_path' => $request->file]);
 
         $requestData->request_data->update($data);
@@ -83,7 +85,7 @@ class BeAuthorRequestsController extends Controller
     public function destroy(string $id)
     {
         $requestData = BeAuthorRequest::find($id);
-        if(auth()->id() != $requestData->user_id)
+        if (auth()->id() != $requestData->user_id)
             return response()->json(['message' => 'you can not delete other users request']);
         $requestData->delete();
         return response()->json(['message' => 'request deleted!']);

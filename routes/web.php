@@ -25,7 +25,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/', function(){return redirect()->route('user.index');});
         Route::resource('/user', UserController::class);
         Route::resources(['roles' => RoleController::class]);
-        Route::resource('/requests', BeAuthorRequestsController::class);
         Route::resource('/categories', CategoryController::class);
+        Route::group(['prefix' => 'requests', 'controller' => BeAuthorRequestsController::class], function(){
+            Route::get('/', 'index')->name('requests.index');
+            Route::get('/done', 'indexDone')->name('requests.indexDone');
+            Route::get('/{id}', 'show')->name('requests.show');
+            Route::get('/reject/{id}', 'reject')->name('requests.reject');
+            Route::get('/accept/{id}', 'accept')->name('requests.accept');
+        });
     });
 });
