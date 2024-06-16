@@ -98,8 +98,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         try {
-
-
             if ($user->name == 'admin') {
                 return redirect()->back()->with('faild', 'you can not delete the admin account');
             } else {

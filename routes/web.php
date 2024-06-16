@@ -1,12 +1,12 @@
 <?php
 
-use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\RoleController;
 use App\Http\Controllers\Web\UserController;
 use App\Http\Controllers\Web\BeAuthorRequestsController;
 use App\Http\Controllers\Web\CategoryController;
+use App\Http\Controllers\Web\ArticlesWebController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,5 +33,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/reject/{id}', 'reject')->name('requests.reject');
             Route::get('/accept/{id}', 'accept')->name('requests.accept');
         });
+        Route::resource('articles', ArticlesWebController::class);
     });
 });

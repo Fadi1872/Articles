@@ -1,33 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
-use App\Http\Resources\ArticleResource;
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ArticlesController extends Controller
+class ArticlesWebController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('permission:show-articles', ['only' => ['index', 'show']]);
-        $this->middleware('permission:create-article', ['only' => ['store', 'show']]);
-        $this->middleware('permission:edit-own-article', ['only' => ['update', 'show']]);
-        $this->middleware('permission:delete-own-article', ['only' => ['delete', 'show']]);
-    }
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // this will be edited later when we add block authors
-        $articles = Article::all();
-        return ArticleResource::collection($articles);
+        $articles = Article::with('category')->get();
+        return view('articles.index', compact('articles'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $categories = Category::all();
+        return view('articles.create', compact('categories'));
     }
 
     /**
@@ -37,7 +37,7 @@ class ArticlesController extends Controller
     {
         //store the image in the public folder
         $imageName = time() . '.' . $request->image->getClientOriginalExtension();
-        Storage::disk('public')->put('images/' . $imageName, file_get_contents($request->image));
+        Storage::disk('public')->put('images/' . $imageName, file_get_contents($request->file('image')));
 
         //store in database
         Article::create([
@@ -47,16 +47,24 @@ class ArticlesController extends Controller
             'category_id' => $request->category_id
         ]);
 
-        return response()->json(['message' => 'article posted successfully!']);
+        return redirect()->route('articles.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Article $article)
     {
-        $article = Article::where('id', $id)->with('category')->get();
-        return new ArticleResource($article[0]);
+        return view('articles.show', compact('article'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Article $article)
+    {
+        $categories = Category::all();
+        return view('articles.edit', compact('article', 'categories'));
     }
 
     /**
@@ -67,7 +75,7 @@ class ArticlesController extends Controller
         $updatedData = [
             'title' => $request->title,
             'body' => $request->body,
-            'category' => $request->category
+            'category_id' => $request->category_id,
         ];
 
         if (isset($request->image)) {
@@ -80,9 +88,9 @@ class ArticlesController extends Controller
 
             $updatedData['image'] = $imageName;
         }
-        $article->update($updatedData);
 
-        return response()->json(['message' => 'article updated successfully!']);
+        $article->update($updatedData);
+        return redirect()->route('articles.show', $article->id);
     }
 
     /**
@@ -95,6 +103,6 @@ class ArticlesController extends Controller
         }
         $article->delete();
 
-        return response()->json(['message' => 'article deleted successfully!']);
+        return redirect()->route('articles.index');
     }
 }
