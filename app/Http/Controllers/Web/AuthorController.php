@@ -1,10 +1,13 @@
 <?php
-
-namespace App\Http\Web\Controllers;
-
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers\Web;
+use App\Models\User;
 use App\Models\Author;
+use app\Models\RequestsData;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthorRequest;
+use Illuminate\Support\Facades\Hash;
 
 class AuthorController extends Controller
 {
@@ -12,8 +15,10 @@ class AuthorController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
+    {  $authors = User::whereHas('roles', function ($query) {
+        $query->where('name', 'Author');
+    })->with('authorData')->get();
+    return view('authors.index', compact('authors'));
     }
 
     /**
@@ -21,15 +26,31 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        //
+        
+        $roles = Role::get();
+
+        return view('authors.create', compact('roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
+    {try {
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        $user->assignRole('Author');
+        $author = Author::create([
+            'user_id' => $user->id,
+           'request_data_id' => $request->request_data_id,
+        ]);
+       return redirect()->route('authors.index');
+    } catch (\Exception $e) {
+        return back()->with('error', ' created Author has been faild');
+    }    
     }
 
     /**
