@@ -15,9 +15,9 @@ class AuthorController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {  $authors = User::whereHas('roles', function ($query) {
-        $query->where('name', 'Author');
-    })->with('authorData')->get();
+    {  $authors = Author::with('userData', 'requestData')->get();
+
+    // return $authors;
     return view('authors.index', compact('authors'));
     }
 

@@ -25,10 +25,6 @@ class UpdateUserRequest extends FormRequest
             'required',
             'string',
             'max:100',
-<<<<<<< HEAD
-=======
-            Rule::unique('users')->ignore($this->user()->id),
->>>>>>> 72c7fbb (author)
         ],
         'email' => [
             'required',

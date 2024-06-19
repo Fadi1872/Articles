@@ -69,7 +69,6 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(int $id)
-<<<<<<< HEAD
     {
         $user = User::findOrFail($id);
         return view('users.update', compact('user'));
@@ -89,42 +88,13 @@ class UserController extends Controller
 
 
         return redirect()->route('user.index')->with('success', 'User updated successfully.');
-=======
-    {   
-        $user=User::findOrFail($id);
-        return view('users.update',compact('user'));
->>>>>>> 72c7fbb (author)
     }
-    public function update(UpdateUserRequest $request, string $id)
-    {
-    $user = User::findOrFail($id);
-  
-    $request->validated();
-    
-    $user->name=$request->name;
-    $user->email=$request->email;
-    if ($request->has('password')) {
-        $user->password = Hash::make($request->input('password'));
-    }
-    $user->save();
-    
-    
-     return redirect()->route('user.index')->with('success', 'User updated successfully.');
- }
- 
 
-
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 72c7fbb (author)
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(User $user)
-<<<<<<< HEAD
     {
         try {
             if ($user->name == 'admin') {
@@ -137,21 +107,4 @@ class UserController extends Controller
             return back()->with('error', 'An error occurred while deleting the user.');
         }
     }
-=======
-    { 
-        try {
-             
-            
-             if($user->name =='admin'){
-                return redirect()->back()->with('faild','you can not delete the admin account');
-             }else{
-                $user->delete();
-             return redirect()->route('user.index')->with('success', 'User deleted successfully.');}
-        } catch (\Exception $e) {
-            
-            return back()->with('error', 'An error occurred while deleting the user.');
-        }
-}
-
->>>>>>> 72c7fbb (author)
 }
