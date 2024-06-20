@@ -13,7 +13,7 @@ class BeAuthorRequestsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:accept-request', ['only' => ['index']]);
+        $this->middleware('permission:accept-request', ['only' => ['index', 'indexDone']]);
     }
 
     public function index()
