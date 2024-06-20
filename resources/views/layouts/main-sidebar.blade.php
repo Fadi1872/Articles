@@ -106,17 +106,17 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-circle-fill"></i>
                         <p>
-                            Categories
+                            Articles
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('categories.index') }}" class="nav-link">
+                            <a href="{{ route('articles.index') }}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>Show</p>
                             </a>
-                            <a href="{{ route('categories.create') }}" class="nav-link">
+                            <a href="{{ route('articles.create') }}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>Add</p>
                             </a>
@@ -127,13 +127,13 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-circle-fill"></i>
                         <p>
-                            Articles
+                            Categories
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('articles.index') }}" class="nav-link">
+                            <a href="{{ route('categories.index') }}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>Show</p>
                             </a>
