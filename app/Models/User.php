@@ -62,6 +62,6 @@ class User extends Authenticatable
     }
 
     public function be_author_request(){
-        return $this->hasOne(Be_Author_Request::class);
+        return $this->hasOne(BeAuthorRequest::class);
     }
 }

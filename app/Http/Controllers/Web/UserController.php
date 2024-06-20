@@ -32,7 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
+        $roles= Role::all();
 
         return view('users.create', compact('roles'));
     }
@@ -52,6 +52,7 @@ class UserController extends Controller
         } else {
             $user->assignRole('Member');
         }
+
 
         return redirect()->route('user.index');
     }
@@ -90,16 +91,12 @@ class UserController extends Controller
     }
 
 
-
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(User $user)
     {
         try {
-
-
             if ($user->name == 'admin') {
                 return redirect()->back()->with('faild', 'you can not delete the admin account');
             } else {

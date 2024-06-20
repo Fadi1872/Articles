@@ -19,9 +19,9 @@
       <tr>
         <th style="width: 10px">#</th>
         <th style="width: 20%">Name</th>
-        <th style="width: 50%">Email</th>        
-        <th style="width: 10%">Role</th>        
-        <th style="width: 20%">Process</th>        
+        <th style="width: 30%">Email</th>
+        <th>Role</th>
+        <th style="width: 30%">Process</th>
       </tr>
     </thead>
     <tbody>
@@ -30,14 +30,10 @@
         <td>{{$loop->index + 1}}.</td>
         <td>{{$user->name}}</td>
         <td>{{$user->email}}</td>
-        <td><p class="badge text-bg-primary mb-0">{{$user->roles[0]->name}}</p></td>
-        <td class="d-flex gap-2">
-          <a href ="{{route('user.edit',$user->id)}}"class="btn btn-primary">edit</a>
-          <form action="{{route('user.destroy',$user->id)}}" method="POST">
-            @csrf
-            @method('DELETE')
-          <button type="submit" class="btn btn-danger">delete</button>
-          </form>
+        <td><span class="badge text-bg-primary">{{$user->roles[0]->name}}</span></td>
+        <td>
+            <button class="btn btn-primary">edit</button>
+            <button class="btn btn-danger">delete</button>
         </td>
       </tr>
       @endforeach

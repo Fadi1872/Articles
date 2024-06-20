@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\ArticlesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
@@ -24,4 +24,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('/requests', BeAuthorRequestsController::class);
     Route::get('/categories', [CategoryController::class, 'index']);
     Route::get('/category/{id}', [CategoryController::class, 'show']);
+    Route::resource('/articles', ArticlesController::class);
 });

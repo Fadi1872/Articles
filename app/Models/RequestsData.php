@@ -18,4 +18,8 @@ class RequestsData extends Model
     public function be_author_request(){
         return $this->belongsTo(BeAuthorRequest::class);
     }
+
+    public function author(){
+        return $this->hasOne(Author::class);
+    }
 }
