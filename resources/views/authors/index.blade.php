@@ -29,10 +29,11 @@
             @foreach ($authors as $item)
                 <tr class="align-middle">
                     <td>{{ $loop->index + 1 }}.</td>
-                    <td>{{ $item->user_data }}</td>
-                    <td>{{ $item->user_data }}</td>
-                    <td>{{ $item->request_data }}</td>
-                    <td>{{ $item->request_data }}</td>
+                    <td>{{ $item->userData->name }}</td>
+                    <td>{{ $item->userData->email }}</td>
+                    <td>{{ $item->requestData->country }}</td>
+                    <td>{{ $item->requestData->address }}</td>
+                    
                     <td>
                         <form action="{{ route('author.destroy', $item->id) }}" method="POST">
                             @csrf
