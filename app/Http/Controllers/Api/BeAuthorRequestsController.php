@@ -9,6 +9,7 @@ use App\Http\Resources\BeAythorResource;
 use App\Models\BeAuthorRequest;
 use App\Models\RequestsData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BeAuthorRequestsController extends Controller
 {
@@ -33,11 +34,12 @@ class BeAuthorRequestsController extends Controller
         $beAutorRequest = BeAuthorRequest::create(['user_id' => auth()->id()]);
 
         $fileName = time() . '.' . $request->file->getClientOriginalExtension();
-        $path = $request->file->storeAs('requestsDocumentes', $fileName);
+        Storage::disk('public')->put('authorDocs/' . $fileName, file_get_contents($request->file));
+
         RequestsData::create([
             'country' => $request->country,
             'address' => $request->address,
-            'files_path' => $path,
+            'files_path' => 'authorDocs/' . $fileName,
             'be_author_request_id' => $beAutorRequest->id
         ]);
 
