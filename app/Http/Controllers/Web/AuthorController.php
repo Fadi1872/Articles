@@ -2,12 +2,12 @@
 namespace App\Http\Controllers\Web;
 use App\Models\User;
 use App\Models\Author;
-use app\Models\RequestsData;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AuthorRequest;
+use App\Http\Requests\StoreAuthorRequest;
+use App\Models\RequestsData;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AuthorController extends Controller
 {
@@ -26,27 +26,38 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        
-        $roles = Role::get();
-
-        return view('authors.create', compact('roles'));
+        return view('authors.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAuthorRequest $request)
     {try {
+        //create new user
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
         $user->assignRole('Author');
-        $author = Author::create([
-            'user_id' => $user->id,
-           'request_data_id' => $request->request_data_id,
+        
+        //store the file
+        $imageName = time() . '.' . $request->file->getClientOriginalExtension();
+        Storage::disk('public')->put('authorDocs/' . $imageName, file_get_contents($request->file));
+
+        //store data request data
+        $requestData = RequestsData::create([
+            'address' => $request->address,
+            'country' => $request->country,
+            'files_path' => 'storage/authorDocs/' . $imageName,
         ]);
+
+        Author::create([
+            'user_id' => $user->id,
+           'request_data_id' => $requestData->id,
+        ]);
+        
        return redirect()->route('authors.index');
     } catch (\Exception $e) {
         return back()->with('error', ' created Author has been faild');
