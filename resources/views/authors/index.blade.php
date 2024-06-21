@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    <a href={{ route('author.create') }} class="btn btn-success mb-4">Add Auther</a>
+    <a href={{ route('author.create') }} class="btn btn-success mb-4">Add Author</a>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -38,8 +38,8 @@
                         <form action="{{ route('author.destroy', $item->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <a href ="{{ route('author.edit', $item->id) }}"class="btn btn-primary">edit</a>
-                            <button type="submit" class="btn btn-danger">delete</button>
+                            <a href ="{{ route('author.edit', $item->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i>edit</a>
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i>delete</button>
                         </form>
                     </td>
                 </tr>

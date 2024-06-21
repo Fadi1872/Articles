@@ -38,12 +38,12 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-header">All Authers</li>
+                <li class="nav-header">All Authors</li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-circle-fill"></i>
                         <p>
-                            Auther Accounts
+                            Author Accounts
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
@@ -76,7 +76,7 @@
                         <li class="nav-item">
                             <a href="{{url('/requests/done') }}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
-                                <p>List Done Reqrests</p>
+                                <p>List Done Requests</p>
                             </a>
                         </li>
                     </ul>

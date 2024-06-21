@@ -73,7 +73,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         return view('users.update', compact('user'));
     }
-    public function update(UpdateUserRequest $request, string $id)
+    public function update(UpdateUserRequest $request, int $id)
     {
         $user = User::findOrFail($id);
 

@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('title')
-    Authers
+    Authors
 @endsection
 
 @section('navone')
-    auther
+    author
 @endsection
 
 @section('navtwo')
