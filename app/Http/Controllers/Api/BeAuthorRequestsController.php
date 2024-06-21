@@ -8,7 +8,7 @@ use App\Http\Requests\UpdateBeAuthorRequest;
 use App\Http\Resources\BeAythorResource;
 use App\Models\BeAuthorRequest;
 use App\Models\RequestsData;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class BeAuthorRequestsController extends Controller
 {
@@ -33,12 +33,11 @@ class BeAuthorRequestsController extends Controller
         $beAutorRequest = BeAuthorRequest::create(['user_id' => auth()->id()]);
 
         $fileName = time() . '.' . $request->file->getClientOriginalExtension();
-        Storage::disk('public')->put('authorDocs/' . $fileName, file_get_contents($request->file));
-
+        $path = $request->file->storeAs('public/requestsDocumentes', $fileName);
         RequestsData::create([
             'country' => $request->country,
             'address' => $request->address,
-            'files_path' => 'authorDocs/' . $fileName,
+            'files_path' => $path,
             'be_author_request_id' => $beAutorRequest->id
         ]);
 
@@ -72,17 +71,8 @@ class BeAuthorRequestsController extends Controller
             'request_id' => $requestData->id
         ];
 
-        if (isset($request->file)) {
-            if (Storage::disk('public')->exists('authorDocs/' . $request->file)) {
-                Storage::disk('public')->delete('authorDocs/' . $request->file);
-            }
-
-            $fileName = time() . '.' . $request->file->getClientOriginalExtension();
-            Storage::disk('public')->put('authorDocs/' . $fileName, file_get_contents($request->file));
-
-            $data["files_path"] = 'authorDocs/' . $fileName;
-        }
-
+        if (!$request->file)
+            array_push($data, ['files_path' => $request->file]);
 
         $requestData->request_data->update($data);
 
@@ -97,9 +87,6 @@ class BeAuthorRequestsController extends Controller
         $requestData = BeAuthorRequest::find($id);
         if (auth()->id() != $requestData->user_id)
             return response()->json(['message' => 'you can not delete other users request']);
-        if (Storage::disk('public')->exists($requestData->files_path)) {
-            Storage::disk('public')->delete($requestData->files_path);
-        }
         $requestData->delete();
         return response()->json(['message' => 'request deleted!']);
     }
