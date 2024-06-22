@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Models\Article;
 class ArticleResource extends JsonResource
 {
     /**
@@ -14,6 +14,8 @@ class ArticleResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // return parent::toArray($request);
+        // return $request;
         $data = [
             'id' => $this->id,
             'title' => $this->title,

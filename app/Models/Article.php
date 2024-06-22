@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Article extends Model
 {
@@ -31,10 +32,10 @@ class Article extends Model
     }
 
     public function favourites(){
-        return $this->hasMany(Favourite::class);
+        return $this->hasMany(User::class,'favourites');
     }
 
-    public function comments(){
+    public function Article_comments(){
         return $this->hasMany(Comment::class);
     }
 }

@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreArticleRequest;
-use App\Http\Requests\UpdateArticleRequest;
+use App\Models\User;
+use App\Models\Author;
 use App\Models\Article;
 use App\Models\Category;
+
 use Illuminate\Http\Request;
+use App\Models\AuthorsArticle;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreArticleRequest;
+use App\Http\Requests\UpdateArticleRequest;
 
 class ArticlesWebController extends Controller
 {
@@ -27,7 +31,10 @@ class ArticlesWebController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('articles.create', compact('categories'));
+        
+        $Authors_id = Author::all()->pluck('user_id');
+        $Authors = User::whereIn('id',$Authors_id  )->get();
+        return view('articles.create', compact('categories','Authors'));
     }
 
     /**
@@ -35,18 +42,33 @@ class ArticlesWebController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
+
+        // مصفوفة تحتوي على أرقام نصية
+        $arrayOfStrings = $request->authors_id;
+        // تحويل كل عنصر في المصفوفة إلى رقم صحيح
+        $arrayOfIndexes_users = array_map('intval', $arrayOfStrings);
         //store the image in the public folder
         $imageName = time() . '.' . $request->image->getClientOriginalExtension();
         Storage::disk('public')->put('images/' . $imageName, file_get_contents($request->file('image')));
-
         //store in database
-        Article::create([
+        $article=Article::create([
             'title' => $request->title,
             'body' => $request->body,
             'image' => $imageName,
             'category_id' => $request->category_id
         ]);
-
+        $auth_indexes = Author::whereIn('user_id', $arrayOfIndexes_users)->get();
+        // dd($auth_indexes->pluck('id') );
+        // $arrayOfIndexes_authors=
+        foreach ($auth_indexes as $index)
+        {
+            // dd($index->id);
+            $art_auth=AuthorsArticle::create([
+                'author_id'=>$index->id,
+                'article_id'=>$article->id,
+                
+            ]);
+        }
         return redirect()->route('articles.index');
     }
 
