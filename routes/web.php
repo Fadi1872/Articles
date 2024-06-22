@@ -41,3 +41,5 @@ Route::middleware('auth')->group(function () {
         Route::resource('articles', ArticlesWebController::class);
     });
 });
+
+Route::get('/download/pdf/{idreq}', [BeAuthorRequestsController::class, 'download_pdf'])->name('download.pdf');

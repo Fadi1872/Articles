@@ -71,6 +71,31 @@
                         </div>
                     </div>
                 </div>
+                <div class="row mb-3">
+                    <label for="image" class="col-sm-2 col-form-label">Authors</label>
+                    <div class="col-sm-10">
+                        
+                        <select name="authors_id[]" class="form-select" multiple size="4">
+            
+                        @foreach ($Authors as $Author)
+                            <!-- <optgroup label="authors"> -->
+                        
+                            <option value="{{$Author->id}}" name="{{$Author->name}}">{{$Author->name}}</option>
+
+                            <!-- </optgroup> -->
+                        @endforeach
+                        </select>
+                    
+
+                        @error('category_id')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <div class="invalid-feedback">
+                            Please select a valid state.
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <!--end::Body-->
             <!--begin::Footer-->

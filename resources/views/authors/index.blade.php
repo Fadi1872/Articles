@@ -17,9 +17,9 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th style="width: 20px">#</th>
+                <th style="width: 10px">#</th>
                 <th style="width: 10%">Name</th>
-                <th style="width: 25%">Email</th>
+                <th style="width: 20%">Email</th>
                 <th style="width: 10%">Country</th>
                 <th style="width: 20%">Address</th>
                 <th style="width: 30%">Process</th>
@@ -29,11 +29,10 @@
             @foreach ($authors as $item)
                 <tr class="align-middle">
                     <td>{{ $loop->index + 1 }}.</td>
-                    <td>{{ $item->userData->name }}</td>
-                    <td>{{ $item->userData->email }}</td>
-                    <td>{{ $item->requestData->country }}</td>
-                    <td>{{ $item->requestData->address }}</td>
-                    
+                    <td>{{ $item->user_data }}</td>
+                    <td>{{ $item->user_data }}</td>
+                    <td>{{ $item->request_data }}</td>
+                    <td>{{ $item->request_data }}</td>
                     <td>
                         <form action="{{ route('author.destroy', $item->id) }}" method="POST">
                             @csrf
