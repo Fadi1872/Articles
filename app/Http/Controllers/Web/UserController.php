@@ -32,7 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles= Role::all();
+        $roles = Role::all();
 
         return view('users.create', compact('roles'));
     }
@@ -106,5 +106,14 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return back()->with('error', 'An error occurred while deleting the user.');
         }
+    }
+
+    public function getUser(Request $request)
+    {
+        $users = [];
+        if($search = $request->name){
+            $users = User::where('name', 'LIKE', "%$search%")->get();
+        }
+        return response()->json($users);
     }
 }

@@ -45,3 +45,5 @@ href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.cs
 integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4="
 crossorigin="anonymous"
 />
+
+@yield('header')
