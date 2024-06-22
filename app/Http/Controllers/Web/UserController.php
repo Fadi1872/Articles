@@ -107,13 +107,4 @@ class UserController extends Controller
             return back()->with('error', 'An error occurred while deleting the user.');
         }
     }
-
-    public function getUser(Request $request)
-    {
-        $users = [];
-        if($search = $request->name){
-            $users = User::where('name', 'LIKE', "%$search%")->get();
-        }
-        return response()->json($users);
-    }
 }

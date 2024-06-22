@@ -45,7 +45,6 @@ class BeAuthorRequestsController extends Controller
         $reqdata = RequestsData::where('be_author_request_id', $idreq)->firstOrFail();
 
         return Storage::download($reqdata->files_path);
-
     }
     
 
