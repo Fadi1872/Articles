@@ -94,9 +94,7 @@
                             <!-- </optgroup> -->
                         @endforeach
                         </select>
-                    
-
-                        @error('category_id')
+                        @error('authors_id')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <div class="invalid-feedback">

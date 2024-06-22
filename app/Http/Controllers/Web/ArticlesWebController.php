@@ -66,7 +66,6 @@ class ArticlesWebController extends Controller
             $art_auth=AuthorsArticle::create([
                 'author_id'=>$index->id,
                 'article_id'=>$article->id,
-                
             ]);
         }
         return redirect()->route('articles.index');
