@@ -43,10 +43,8 @@ class AuthorController extends Controller
             'password' => Hash::make($request->password),
         ]);
         $user->assignRole('Author');
-        $authors = Author::create([
+        $author = Author::create([
             'user_id' => $user->id,
-            'country' => $authors->country,
-            'address' => $authors->address,
            'request_data_id' => $request->request_data_id,
         ]);
        return redirect()->route('authors.index');
