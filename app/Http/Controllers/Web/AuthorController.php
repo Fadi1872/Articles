@@ -52,7 +52,7 @@ class AuthorController extends Controller
             'files_path' => 'public/requestsDocumentes/' . $fileName
         ]);
 
-        $author = Author::create([
+        Author::create([
             'user_id' => $user->id,
             'request_data_id' => $requestData->id,
         ]);

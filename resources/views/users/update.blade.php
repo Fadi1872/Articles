@@ -63,6 +63,7 @@
                           type="checkbox"
                           id="gridCheck1"
                           name="is_admin"
+                          {{ $user->hasRole('Admin') ? "checked": '' }}
                         />
                         <label for="gridCheck1">Make Admin</label>
                       </div>
