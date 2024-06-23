@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('authors_articles', function (Blueprint $table) {
             $table->foreignId('author_id')->references('id')->on('authors')->onDelete('cascade');
             $table->foreignId('article_id')->references('id')->on('articles')->onDelete('cascade');
-
+            $table->timestamps();
             $table->primary(['author_id', 'article_id']);
         });
     }

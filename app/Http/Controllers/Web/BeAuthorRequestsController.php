@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Models\Author;
-use App\Models\BeAuthorRequest;
-use App\Models\RequestsData;
 use App\Models\User;
+use App\Models\Author;
+use App\Models\RequestsData;
 use Illuminate\Http\Request;
+use App\Models\BeAuthorRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class BeAuthorRequestsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:accept-request', ['only' => ['index', 'indexDone']]);
+        $this->middleware('permission:accept-request', ['only' => ['index']]);
     }
 
     public function index()
@@ -31,9 +33,20 @@ class BeAuthorRequestsController extends Controller
     public function show(string $id)
     {
         $request = BeAuthorRequest::where('id', $id)->with('user', 'request_data')->get();
+
         $request = $request[0];
+        
         return view('requests.show', compact('request'));
     }
+
+
+    public function download_pdf(int $idreq)
+    {
+        $reqdata = RequestsData::where('be_author_request_id', $idreq)->firstOrFail();
+
+        return Storage::download($reqdata->files_path);
+    }
+    
 
     public function reject(BeAuthorRequest $id)
     {
@@ -56,10 +69,8 @@ class BeAuthorRequestsController extends Controller
 
         //link the requsts data to the author
         $request_data = RequestsData::find($request->request_data->id);
-        $authors = Author::create([
+        $author = Author::create([
             'user_id' => $user->id,
-            'country' => $authors->country,
-            'address' => $authors->address,
             'request_data_id' => $request_data->id,
         ]);
 

@@ -73,7 +73,8 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         return view('users.update', compact('user'));
     }
-    public function update(UpdateUserRequest $request, int $id)
+
+    public function update(UpdateUserRequest $request, string $id)
     {
         $user = User::findOrFail($id);
 
@@ -84,8 +85,14 @@ class UserController extends Controller
         if ($request->has('password')) {
             $user->password = Hash::make($request->input('password'));
         }
+        if (isset($request->is_admin)) {
+            $user->assignRole('Admin');
+            $user->removeRole('Member');
+        } else {
+            $user->assignRole('Member');
+            $user->removeRole('Admin');
+        }
         $user->save();
-
 
         return redirect()->route('user.index')->with('success', 'User updated successfully.');
     }
@@ -106,14 +113,5 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return back()->with('error', 'An error occurred while deleting the user.');
         }
-    }
-
-    public function getUser(Request $request)
-    {
-        $users = [];
-        if($search = $request->name){
-            $users = User::where('name', 'LIKE', "%$search%")->get();
-        }
-        return response()->json($users);
     }
 }
