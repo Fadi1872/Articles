@@ -89,10 +89,11 @@ class AuthorController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdateAuthorRequest $request, Author $author)
-    {   try{
+    {   
+        try{
         
-                
-        $user=User::findOrFail($author->user_id);
+        
+        $user=User::findOrFail($author->user_id);            
         $updatedData = [
             'name' => $request->name,
             'email' => $request->email,
