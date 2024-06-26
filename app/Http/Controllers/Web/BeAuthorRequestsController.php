@@ -71,8 +71,7 @@ class BeAuthorRequestsController extends Controller
         $request_data = RequestsData::find($request->request_data->id);
         $authors = Author::create([
             'user_id' => $user->id,
-            'country' => $authors->country,
-            'address' => $authors->address,
+         
 
             'request_data_id' => $request_data->id,
         ]);

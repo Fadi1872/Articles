@@ -27,7 +27,7 @@ class FavoriteController extends Controller
         {
             $user->favourites()->detach($article_id);
             return response()->json([
-                'message' => 'Favorit book unstored',
+                'message' => 'Favourite book unstored',
             ]);
         } 
         else 

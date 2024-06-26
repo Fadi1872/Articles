@@ -17,4 +17,5 @@ class AuthorsArticle extends Model
         'author_id',
         'article_id',
     ];
+
 }

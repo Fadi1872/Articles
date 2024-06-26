@@ -32,11 +32,11 @@ class UpdateAuthorRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users')->ignore($this->user()->id),
+                'unique:users,email,'.$this->route('author')->user_id 
             ],
 
             'password' => [
-                'required',
+                'nullable',
                 'string',
                 'min:8',
             ],
@@ -52,7 +52,7 @@ class UpdateAuthorRequest extends FormRequest
                 'max:255'
         ],
             'file' => [
-                'required',
+                'nullable',
                 'file',
                 'mimetypes:application/pdf',
                 'max:5048'

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\UpdateUserRequest;
 
+
 class UserController extends Controller
 {
     /**
@@ -74,14 +75,14 @@ class UserController extends Controller
         return view('users.update', compact('user'));
     }
 
-    public function update(UpdateUserRequest $request, string $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $user = User::findOrFail($id);
+        $user->update([
+            $user->name = $request->name,
+            $user->email = $request->email,
+            
+        ]);
 
-        $request->validated();
-
-        $user->name = $request->name;
-        $user->email = $request->email;
         if ($request->has('password')) {
             $user->password = Hash::make($request->input('password'));
         }
@@ -92,8 +93,6 @@ class UserController extends Controller
             $user->assignRole('Member');
             $user->removeRole('Admin');
         }
-        $user->save();
-
         return redirect()->route('user.index')->with('success', 'User updated successfully.');
     }
 

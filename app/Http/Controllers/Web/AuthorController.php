@@ -91,8 +91,10 @@ class AuthorController extends Controller
         $updatedData = [
             'name' => $request->name,
             'email' => $request->email,
-            'password' =>Hash::make($request->input('password')),
         ];
+        if(isset($request->password)){
+            $updatedData['password'] = Hash::make($request->input('password'));
+        }
         $user->update($updatedData);   
 
 
@@ -100,7 +102,6 @@ class AuthorController extends Controller
         $updatedData2 = [
             'address' => $request->address,
             'country' => $request->country,
-       
         ];
 
 
@@ -113,6 +114,7 @@ class AuthorController extends Controller
             Storage::disk('public')->put('authorDocs/' . $fileName, file_get_contents($request->file));
 
             $updatedData2["files_path"] = 'authorDocs/' . $fileName;
+            
         }
 
         $request_data->update($updatedData2);  
