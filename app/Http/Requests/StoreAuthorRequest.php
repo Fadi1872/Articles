@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserStoreRequest extends FormRequest
+class StoreAuthorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,10 @@ class UserStoreRequest extends FormRequest
         return [
             'name' => 'required|string|max:250',
             'email' => 'required|string|max:250|unique:users,email',
-            'password' => 'required|string|min:8|confirmed'
+            'password' => 'required|string|min:8|confirmed',
+            'country' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'file' => 'required|file|mimetypes:application/pdf|max:5048'
         ];
     }
 }

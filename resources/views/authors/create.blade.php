@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('title')
-    Authers
+    Authors
 @endsection
 
 @section('navone')
-    auther
+    author
 @endsection
 
 @section('navtwo')
@@ -20,7 +20,7 @@
     </div>
     <!--end::Header-->
     <!--begin::Form-->
-    <form method="post" action="{{route('author.store')}}">
+    <form method="post" action="{{route('author.store')}}" enctype="multipart/form-data">
         @csrf
         <!--begin::Body-->
         <div class="card-body">
@@ -48,7 +48,7 @@
                 <label for="password" class="col-sm-2 col-form-label">Password</label>
                 <div class="col-sm-10">
                     <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
-                        name="password" value="{{ old('password') }}" />
+                        name="password" />
                     @error('password')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -65,28 +65,30 @@
                 <label for="country" class="col-sm-2 col-form-label">Country</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control"
-                        id="country" name="country" />
+                        id="country" name="country" value="{{ old('country') }}" />
+                        @error('country')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="address" class="col-sm-2 col-form-label">Address</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control"
-                        id="country" name="country" />
+                        id="address" name="address" value="{{ old('address') }}" />
+                        @error('address')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="text" class="col-sm-2 col-form-label">Path_file</label>
+                <label for="file" class="col-sm-2 col-form-label">File</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control"
-                        id="path_file" name="path_file" />
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="request_id" class="col-sm-2 col-form-label">Request data id</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control"
-                        id="request_data_id" name="request_data_id" />
+                    <input type="file" class="form-control"
+                        id="file" name="file" />
+                        @error('file')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                 </div>
             </div>
         </div>
