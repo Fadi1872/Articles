@@ -36,7 +36,7 @@ class UpdateAuthorRequest extends FormRequest
             ],
 
             'password' => [
-                'required',
+                'nullable',
                 'string',
                 'min:8',
             ],
@@ -52,7 +52,7 @@ class UpdateAuthorRequest extends FormRequest
                 'max:255'
         ],
             'file' => [
-                'required',
+                'nullable',
                 'file',
                 'mimetypes:application/pdf',
                 'max:5048'
