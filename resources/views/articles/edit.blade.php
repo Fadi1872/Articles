@@ -16,7 +16,7 @@
     <div class="card card-primary card-outline mb-4">
         <!--begin::Header-->
         <div class="card-header">
-            <div class="card-title">Create New Article</div>
+            <div class="card-title">Edit Article</div>
         </div>
         <!--end::Header-->
         <!--begin::Form-->
@@ -26,7 +26,7 @@
             <!--begin::Body-->
             <div class="card-body">
                 <div class="row mb-3">
-                    <label for="title" class="col-sm-2 col-form-label">Titele</label>
+                    <label for="title" class="col-sm-2 col-form-label">Title</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"
                             name="title" value="{{ $article->title }}" />
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="image" class="col-sm-2 col-form-label">Category</label>
+                    <label for="category" class="col-sm-2 col-form-label">Category</label>
                     <div class="col-sm-10">
                         <select class="form-select" id="validationCustom04" name="category_id" required>
                             @foreach ($categories as $category)
@@ -76,7 +76,7 @@
             <!--end::Body-->
             <!--begin::Footer-->
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </div>
             <!--end::Footer-->
         </form>

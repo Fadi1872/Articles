@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('title')
-    Authers
+    Authors
 @endsection
 
 @section('navone')
-    Auther
+    Author
 @endsection
 
 @section('navtwo')
@@ -37,8 +37,8 @@
                         <form action="{{ route('author.destroy', $item->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <a href ="{{ route('author.edit', $item->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-eye"></i>edit</a>
-                            <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-pencil-square"></i>delete</button>
+                            <a href ="{{ route('author.edit', $item->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i>edit</a>
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this author?');"><i class="bi bi-trash"></i> Delete</button>
                         </form>
                     </td>
                 </tr>
