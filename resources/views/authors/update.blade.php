@@ -82,7 +82,7 @@
                 <div class="row mb-3">
                     <label for="file" class="col-sm-2 col-form-label">File</label>
                     <div class="col-sm-10">
-                        <input type="file" class="form-control" value="{{ $request_data->file_path }}" id="file"
+                        <input type="file" class="form-control @error('file') is-invalid @enderror" id="file"
                             name="file" />
                         @error('file')
                             <div class="alert alert-danger">{{ $message }}</div>

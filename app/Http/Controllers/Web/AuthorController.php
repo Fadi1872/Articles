@@ -113,6 +113,7 @@ class AuthorController extends Controller
             Storage::disk('public')->put('authorDocs/' . $fileName, file_get_contents($request->file));
 
             $updatedData2["files_path"] = 'authorDocs/' . $fileName;
+            
         }
 
         $request_data->update($updatedData2);  

@@ -84,6 +84,7 @@ class ArticlesWebController extends Controller
      */
     public function edit(Article $article)
     {
+        
         $categories = Category::all();
         return view('articles.edit', compact('article', 'categories'));
     }
@@ -111,7 +112,7 @@ class ArticlesWebController extends Controller
         }
 
         $article->update($updatedData);
-        return redirect()->route('articles.show', $article->id);
+        return redirect()->route('articles.index', $article->id);
     }
 
     /**

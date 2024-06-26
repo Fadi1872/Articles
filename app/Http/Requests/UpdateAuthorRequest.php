@@ -32,7 +32,7 @@ class UpdateAuthorRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users')->ignore($this->user()->id),
+                'unique:users,email,'.$this->route('author')->user_id 
             ],
 
             'password' => [
