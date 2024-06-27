@@ -58,8 +58,10 @@ class BeAuthorRequestsController extends Controller
 
         //link the requsts data to the author
         $request_data = RequestsData::find($request->request_data->id);
-        $author = Author::create([
+        $authors = Author::create([
             'user_id' => $user->id,
+         
+
             'request_data_id' => $request_data->id,
         ]);
 

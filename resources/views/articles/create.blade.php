@@ -84,16 +84,16 @@
                     <label for="image" class="col-sm-2 col-form-label">Authors</label>
                     <div class="col-sm-10">
                         
-                        <select name="authors_id[]" class="form-select" multiple size="4">
-            
-                        @foreach ($Authors as $Author)
-                            <!-- <optgroup label="authors"> -->
                         
-                            <option value="{{$Author->id}}" name="{{$Author->name}}">{{$Author->name}}</option>
-
+                        @forelse ($Authors as $Author)
+                            <!-- <optgroup label="authors"> -->
+                            <input type="checkbox" id="author" name="authors_id[]" value="{{ $Author->id }}" {{ in_array($Author->id, old('author') ?? []) ? 'selected' : '' }}>
+                            {{$Author->name}}
+                           
+                            @empty
                             <!-- </optgroup> -->
-                        @endforeach
-                        </select>
+                        @endforelse
+                       
                         @error('authors_id')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
