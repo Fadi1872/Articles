@@ -67,6 +67,31 @@
                         @error('category_id')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
+</div>
+                        <div class="row mb-3">
+                    <label for="image" class="col-sm-2 col-form-label">Authors</label>
+                    <div class="col-sm-10">
+                        
+                        
+                        @forelse ($Authors as $Author)
+                            <!-- <optgroup label="authors"> -->
+                            <input type="checkbox" id="author" name="authors_id[]" value="{{ $Author->id }}" {{ in_array($Author->id, old('author') ?? []) ? 'selected' : '' }}>
+                            {{$Author->name}}
+                           
+                            @empty
+                            <!-- </optgroup> -->
+                        @endforelse
+                       
+                        @error('authors_id')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <div class="invalid-feedback">
+                            Please select a valid state.
+                        </div>
+                    </div>
+                </div>
+                </div>
+
                         <div class="invalid-feedback">
                             Please select a valid state.
                         </div>

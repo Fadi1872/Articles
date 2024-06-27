@@ -86,7 +86,9 @@ class ArticlesWebController extends Controller
     {
         
         $categories = Category::all();
-        return view('articles.edit', compact('article', 'categories'));
+        $Authors_id = Author::all()->pluck('user_id');
+        $Authors = User::whereIn('id',$Authors_id  )->get();
+        return view('articles.edit', compact('article', 'categories','Authors'));
     }
 
     /**
