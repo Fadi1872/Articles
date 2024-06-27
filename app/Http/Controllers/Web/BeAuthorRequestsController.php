@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Web;
 
 use App\Models\User;
+use App\Mail\DemoMail;
 use App\Models\Author;
 use App\Models\RequestsData;
 use Illuminate\Http\Request;
 use App\Models\BeAuthorRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 
 class BeAuthorRequestsController extends Controller
 {
@@ -33,20 +33,9 @@ class BeAuthorRequestsController extends Controller
     public function show(string $id)
     {
         $request = BeAuthorRequest::where('id', $id)->with('user', 'request_data')->get();
-
         $request = $request[0];
-        
         return view('requests.show', compact('request'));
     }
-
-
-    public function download_pdf(int $idreq)
-    {
-        $reqdata = RequestsData::where('be_author_request_id', $idreq)->firstOrFail();
-
-        return Storage::download($reqdata->files_path);
-    }
-    
 
     public function reject(BeAuthorRequest $id)
     {
@@ -81,6 +70,17 @@ class BeAuthorRequestsController extends Controller
             'status' => 'accepted'
         ]);
 
-        return redirect()->route('requests.index');
+        $this->sendAcceptanceEmail($request->user);
+
+        return redirect()->route('requests.index')->with('success', 'Request accepted and email sent.');
+    } 
+    private function sendAcceptanceEmail($user)
+    {
+        $mailData = [
+            'title' => 'Your Author Request Has Been Accepted',
+            'body' => 'Congratulations! Your request to become an author has been accepted.'
+        ];
+        Mail::to($user->email)->send(new DemoMail($mailData));
     }
-}
+    }
+   
