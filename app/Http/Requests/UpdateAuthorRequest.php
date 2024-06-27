@@ -32,7 +32,7 @@ class UpdateAuthorRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                'unique:users,email,'.$this->route('author')->user_id 
+                'unique:users,email,' . $this->route('author')->user_id
             ],
 
             'password' => [
@@ -44,20 +44,19 @@ class UpdateAuthorRequest extends FormRequest
             'country' => [
                 'required',
                 'string',
-                 'max:255'
+                'max:255'
             ],
             'address' => [
                 'required',
                 'string',
                 'max:255'
-        ],
+            ],
             'file' => [
                 'nullable',
                 'file',
                 'mimetypes:application/pdf',
                 'max:5048'
-        ],
-        
+            ],
         ];
     }
 }

@@ -31,10 +31,10 @@ class ArticlesWebController extends Controller
     public function create()
     {
         $categories = Category::all();
-        
+
         $Authors_id = Author::all()->pluck('user_id');
-        $Authors = User::whereIn('id',$Authors_id  )->get();
-        return view('articles.create', compact('categories','Authors'));
+        $Authors = User::whereIn('id', $Authors_id)->get();
+        return view('articles.create', compact('categories', 'Authors'));
     }
 
     /**
@@ -51,7 +51,7 @@ class ArticlesWebController extends Controller
         $imageName = time() . '.' . $request->image->getClientOriginalExtension();
         Storage::disk('public')->put('images/' . $imageName, file_get_contents($request->file('image')));
         //store in database
-        $article=Article::create([
+        $article = Article::create([
             'title' => $request->title,
             'body' => $request->body,
             'image' => $imageName,
@@ -60,12 +60,11 @@ class ArticlesWebController extends Controller
         $auth_indexes = Author::whereIn('user_id', $arrayOfIndexes_users)->get();
         // dd($auth_indexes->pluck('id') );
         // $arrayOfIndexes_authors=
-        foreach ($auth_indexes as $index)
-        {
+        foreach ($auth_indexes as $index) {
             // dd($index->id);
-            $art_auth=AuthorsArticle::create([
-                'author_id'=>$index->id,
-                'article_id'=>$article->id,
+            $art_auth = AuthorsArticle::create([
+                'author_id' => $index->id,
+                'article_id' => $article->id,
             ]);
         }
         return redirect()->route('articles.index');
@@ -84,13 +83,13 @@ class ArticlesWebController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Article $article)
+    public function edit(string $id)
     {
-        
+        $article = Article::where('id', $id)->with('authors', 'authors.userData')->get();
+        $article = $article[0];
         $categories = Category::all();
-        $Authors_id = Author::all()->pluck('user_id');
-        $Authors = User::whereIn('id',$Authors_id  )->get();
-        return view('articles.edit', compact('article', 'categories','Authors'));
+        $Authors = Author::with('userData')->get();
+        return view('articles.edit', compact('article', 'categories', 'Authors'));
     }
 
     /**
@@ -103,6 +102,8 @@ class ArticlesWebController extends Controller
             'body' => $request->body,
             'category_id' => $request->category_id,
         ];
+        $selectedAuthorIds = $request->input('authors_id', []);
+        $article->authors()->sync($selectedAuthorIds);
 
         if (isset($request->image)) {
             if (Storage::disk('public')->exists('images/' . $article->image)) {
