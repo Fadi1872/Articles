@@ -74,8 +74,10 @@ class ArticlesWebController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Article $article)
+    public function show(string $id)
     {
+        $article = Article::where('id', $id)->with('authors', 'authors.userData')->get();
+        $article = $article[0];
         return view('articles.show', compact('article'));
     }
 

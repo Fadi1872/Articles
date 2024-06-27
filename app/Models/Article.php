@@ -27,8 +27,8 @@ class Article extends Model
         return $this->belongsTo(Category::class);
     }
 
-        public function authors(){
-        return $this->belongsToMany(Author::class);
+    public function authors(){
+        return $this->belongsToMany(Author::class, 'authors_articles');
     }
 
     public function favourites(){

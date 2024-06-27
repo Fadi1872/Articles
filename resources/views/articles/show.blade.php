@@ -13,6 +13,13 @@
 @endsection
 
 @section('content')
+        <div class="d-flex gap-3 mb-2 px-0">
+            @foreach ($article->authors as $author)
+            <div class="bg-primary p-3 py-2 rounded-3 text-white">
+                {{$author->userData->name}}
+            </div>
+        @endforeach
+        </div>
     <div class="card">
         <div class="container-fluid py-4">
             <div class="row">
