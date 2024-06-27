@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Models\Author;
-use App\Models\BeAuthorRequest;
-use App\Models\RequestsData;
 use App\Models\User;
+use App\Mail\DemoMail;
+use App\Models\Author;
+use App\Models\RequestsData;
 use Illuminate\Http\Request;
+use App\Models\BeAuthorRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class BeAuthorRequestsController extends Controller
 {
@@ -66,6 +68,17 @@ class BeAuthorRequestsController extends Controller
             'status' => 'accepted'
         ]);
 
-        return redirect()->route('requests.index');
+        $this->sendAcceptanceEmail($request->user);
+
+        return redirect()->route('requests.index')->with('success', 'Request accepted and email sent.');
+    } 
+    private function sendAcceptanceEmail($user)
+    {
+        $mailData = [
+            'title' => 'Your Author Request Has Been Accepted',
+            'body' => 'Congratulations! Your request to become an author has been accepted.'
+        ];
+        Mail::to($user->email)->send(new DemoMail($mailData));
     }
-}
+    }
+   

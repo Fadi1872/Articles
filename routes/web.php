@@ -3,6 +3,7 @@
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\Web\RoleController;
 use App\Http\Controllers\Web\UserController;
 use App\Http\Controllers\Web\AuthorController;
@@ -26,7 +27,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/', function(){return redirect()->route('user.index');});
         Route::resource('/user', UserController::class);
         Route::resource('author', AuthorController::class);
-        
         Route::resources(['roles' => RoleController::class]);
         Route::resource('/categories', CategoryController::class);
         Route::group(['prefix' => 'requests', 'controller' => BeAuthorRequestsController::class], function(){
