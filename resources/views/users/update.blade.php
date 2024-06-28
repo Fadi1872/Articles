@@ -49,14 +49,12 @@
                     <label for="password" class="col-sm-2 col-form-label">Password</label>
                     <div class="col-sm-10">
                         <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
-                            name="password" value="{{$user->password}}" />
+                            name="password" />
                         @error('password')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
-
                     </div>
                 </div>
-
                 <div class="row mb-3">
                     <div class="col-sm-10 offset-sm-2">
                       <div class="form-check">
@@ -65,7 +63,9 @@
                           type="checkbox"
                           id="gridCheck1"
                           name="is_admin"
+                          {{ $user->hasRole('Admin') ? "checked": '' }}
                         />
+                        <label for="gridCheck1">Make Admin</label>
                       </div>
                     </div>
                   </div>

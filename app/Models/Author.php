@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Author extends Model
 {
@@ -24,14 +25,14 @@ class Author extends Model
     }
 
     public function userData(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
     
     public function blocks(){
         return $this->belongsToMany(User::class, 'blocks');
     }
 
-    public function authorData(){
-        return $this->belongsTo(RequestsData::class);
+    public function requestData(){
+        return $this->belongsTo(RequestsData::class, 'request_data_id');
     }
 }

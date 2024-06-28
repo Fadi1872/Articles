@@ -1,13 +1,15 @@
 <?php
 
-use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\RoleController;
 use App\Http\Controllers\Web\UserController;
 use App\Http\Controllers\Web\AuthorController;
+//use App\Http\Controllers\Web\AuthorController;
 use App\Http\Controllers\Web\CategoryController;
+use App\Http\Controllers\Web\ArticlesWebController;
 use App\Http\Controllers\Web\BeAuthorRequestsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::middleware('dashboard')->group(function () {
         Route::get('/', function(){return redirect()->route('user.index');});
         Route::resource('/user', UserController::class);
-        Route::resource('author', AuthorController::class);
-        
+        Route::post('/user/get', [UserController::class, 'getUser'])->name('getusers');
+        Route::resource('/author',AuthorController::class);
+
         Route::resources(['roles' => RoleController::class]);
         Route::resource('/categories', CategoryController::class);
         Route::group(['prefix' => 'requests', 'controller' => BeAuthorRequestsController::class], function(){
@@ -36,5 +39,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/reject/{id}', 'reject')->name('requests.reject');
             Route::get('/accept/{id}', 'accept')->name('requests.accept');
         });
+        Route::resource('articles', ArticlesWebController::class);
     });
 });
+
+Route::get('/download/pdf/{idreq}', [BeAuthorRequestsController::class, 'download_pdf'])->name('download.pdf');

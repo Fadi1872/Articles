@@ -121,9 +121,11 @@
                         <p class="mb-0 info-box-text col-md-9">{{ $request->updated_at }}</p>
                     </div>
                 @endif
+            
                 <div class="col-md-12 d-flex gap-2 justify-content-end align-items-center mt-4">
-                    <a href="{{ $request->request_data->files_path }}" download="request.pdf"
+                    <a href="{{ route('download.pdf' ,['idreq' => $request] ) }}" 
                         class="btn btn-primary">Download File</a>
+
                     @if ($request->status == 'pending')
                         <a href="{{ route('requests.accept', $request->id) }}" class="btn btn-success">Accept</a>
                         <a href="{{ url('requests/reject/' . $request->id) }}" class="btn btn-danger">Reject</a>

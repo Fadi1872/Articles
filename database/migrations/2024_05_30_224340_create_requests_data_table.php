@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('requests_data', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('be_author_request_id')->references('id')->on('be_author_requests')->onDelete('cascade');
+            $table->foreignId('be_author_request_id')->nullable()->references('id')->on('be_author_requests')->onDelete('cascade');
             $table->string('country');
             $table->string('address');
             $table->string('files_path');

@@ -21,20 +21,12 @@ class StoreArticleRequest extends FormRequest
      */
     public function rules(): array
     {
-        if ($_SERVER['REQUEST_METHOD'] == "POST") {
-            return [
-                'title' => 'required|string|max:255',
-                'body' => 'required|string|max:10000',
-                'image' => 'required|image|mimes:jpg,jpeg,png,gif|max:5048',
-                'category_id' => 'required|exists:categories,id'
-            ];
-        } else {
-            return [
-                'title' => 'required|string|max:255',
-                'body' => 'required|string|max:10000',
-                'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:5048',
-                'category_id' => 'required|exists:categories,id'
-            ]; 
-        }
+        return [
+            'title' => 'required|string|max:255',
+            'body' => 'required|string|max:10000',
+            'image' => 'required|image|mimes:jpg,jpeg,png,gif|max:5048',
+            'category_id' => 'required|exists:categories,id',
+            'authors_id' => 'required|array|min:1',
+        ];
     }
 }

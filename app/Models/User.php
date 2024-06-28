@@ -3,7 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Http\Request;
+use App\Models\Author;
+use App\Models\Article;
+use App\Models\Comment;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -47,15 +49,15 @@ class User extends Authenticatable
     ];
 
     public function favourites(){
-        return $this->belongsToMany(Author::class, 'favourites');
+        return $this->belongsToMany(Article::class, 'favourites');
     }
 
     public function blocks(){
-        return $this->belongsToMany(Author::class, 'blockes');
+        return $this->belongsToMany(Author::class, 'blocks');
     }
 
-    public function comments(){
-        return $this->belongsToMany(Author::class, 'comments');
+    public function user_comments(){
+        return $this->hasMany(Comment::class);
     }
 
     public function authorData(){
