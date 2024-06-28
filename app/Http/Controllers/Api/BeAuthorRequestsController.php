@@ -39,7 +39,7 @@ class BeAuthorRequestsController extends Controller
         RequestsData::create([
             'country' => $request->country,
             'address' => $request->address,
-            'files_path' => 'public/requestsDocumentes/' . $fileName,
+            'files_path' => 'storage/requestsDocumentes/' . $fileName,
             'be_author_request_id' => $beAutorRequest->id
         ]);
 

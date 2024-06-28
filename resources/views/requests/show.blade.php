@@ -123,7 +123,7 @@
                 @endif
             
                 <div class="col-md-12 d-flex gap-2 justify-content-end align-items-center mt-4">
-                    <a href="{{ route('download.pdf' ,['idreq' => $request] ) }}" 
+                    <a href="{{ asset($request->request_data->files_path) }}" download 
                         class="btn btn-primary">Download File</a>
 
                     @if ($request->status == 'pending')

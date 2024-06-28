@@ -74,6 +74,7 @@ class BeAuthorRequestsController extends Controller
 
         return redirect()->route('requests.index')->with('success', 'Request accepted and email sent.');
     } 
+
     private function sendAcceptanceEmail($user)
     {
         $mailData = [
