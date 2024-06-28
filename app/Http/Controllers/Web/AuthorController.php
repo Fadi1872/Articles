@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Web;
 
-use App\Models\User;
+
 use App\Models\Author;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -10,6 +10,7 @@ use App\Http\Requests\AuthorRequest;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
 use App\Models\RequestsData;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -61,6 +62,7 @@ class AuthorController extends Controller
         return redirect()->route('author.index');  
     }
 
+
     /**
      * Display the specified resource.
      */
@@ -75,7 +77,7 @@ class AuthorController extends Controller
     public function edit(int $id)
     {
         $author = Author::findOrFail($id);
-        $user=User::findOrFail($author->user_id);
+        $user= User::findOrFail($author->user_id);
         $request_data=RequestsData::findOrFail($author->request_data_id);
         return view('authors.update', compact('author','user','request_data'));
     }
